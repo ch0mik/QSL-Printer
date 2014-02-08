@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ADIF" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="ADIF" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="QSO">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PRINT_PREVIEW" type="xs:string" minOccurs="0" />
+              <xs:element name="CALL" type="xs:string" minOccurs="0" />
+              <xs:element name="DATE_DD" type="xs:string" minOccurs="0" />
+              <xs:element name="DATE_MM" type="xs:string" minOccurs="0" />
+              <xs:element name="DATE_YYYY" type="xs:string" minOccurs="0" />
+              <xs:element name="TIME" type="xs:string" minOccurs="0" />
+              <xs:element name="REMARKS" type="xs:string" minOccurs="0" />
+              <xs:element name="BAND" type="xs:string" minOccurs="0" />
+              <xs:element name="FREQ" type="xs:string" minOccurs="0" />
+              <xs:element name="QSL_VIA" type="xs:string" minOccurs="0" />
+              <xs:element name="COMMENT" type="xs:string" minOccurs="0" />
+              <xs:element name="SUFIX" type="xs:string" minOccurs="0" />
+              <xs:element name="QSL_RCVD" type="xs:string" minOccurs="0" />
+              <xs:element name="TX_PWR" type="xs:string" minOccurs="0" />
+              <xs:element name="RST_SENT" type="xs:string" minOccurs="0" />
+              <xs:element name="MODE" type="xs:string" minOccurs="0" />
+              <xs:element name="PREFIX" type="xs:string" minOccurs="0" />
+              <xs:element name="SWL" type="xs:string" minOccurs="0" />
+              <xs:element name="TRX" type="xs:string" minOccurs="0" />
+              <xs:element name="ANT" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
