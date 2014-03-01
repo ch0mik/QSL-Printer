@@ -133,6 +133,7 @@ namespace QSL_Print_Manager
                     pdf.GeneratePDF(tempXML, xslt, tempXSLFO, tempPDF);
 
                     AcrobatViewer.LoadFile(tempPDF);
+                    AcrobatViewer.setShowToolbar(false);
                     AcrobatViewer.Update();
                     AcrobatViewer.Show();
                 }
@@ -157,6 +158,11 @@ namespace QSL_Print_Manager
         private void btnPrint_Click(object sender, EventArgs e)
         {
             PreviewPrint(QSOs[currentQSO], false);
+        }
+
+        private void btnToPrinter_Click(object sender, EventArgs e)
+        {
+                 AcrobatViewer.Print();
         }
 
         

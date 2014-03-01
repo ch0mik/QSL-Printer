@@ -169,12 +169,14 @@ namespace SQ7MRU.Utils.ADIF
 
         internal static String LoadFileToString(string FilePath)
         {
-
-            using (StreamReader streamReader = new StreamReader(FilePath))
+            using (FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                string text = streamReader.ReadToEnd();
-                streamReader.Close();
-                return text;
+                using (StreamReader streamReader = new StreamReader(fs))
+                {
+                    string text = streamReader.ReadToEnd();
+                    streamReader.Close();
+                    return text;
+                }
             }
 
         }
