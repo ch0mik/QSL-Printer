@@ -26,12 +26,12 @@ namespace QSL_Print_Manager
         {
             InitializeComponent();
             QSOs = new List<ADIFRowExtended>();
-            xsd = ConfigurationManager.AppSettings["XSD"] ?? "SQ7MRU.xsd";
+            xsd = ConfigurationManager.AppSettings["XSD"] ?? "validate.xsd";
             xslt = ConfigurationManager.AppSettings["XSLT"] ?? "SQ7MRU.xslt";
             background = ConfigurationManager.AppSettings["BackGround"] ?? "SQ7MRU.jpg";
-            tempXML = ConfigurationManager.AppSettings["TempXML"] ?? "SQ7MRU.xml";
-            tempXSLFO = ConfigurationManager.AppSettings["TempXSLFO"] ?? "SQ7MRU.fo";
-            tempPDF = ConfigurationManager.AppSettings["TempPDF"] ?? "SQ7MRU.pdf";
+            tempXML = ConfigurationManager.AppSettings["TempXML"] ?? "temp.xml";
+            tempXSLFO = ConfigurationManager.AppSettings["TempXSLFO"] ?? "temp.fo";
+            tempPDF = ConfigurationManager.AppSettings["TempPDF"] ?? "temp.pdf";
         }
 
       
