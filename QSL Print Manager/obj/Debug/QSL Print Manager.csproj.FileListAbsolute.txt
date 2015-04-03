@@ -1,0 +1,4 @@
+C:\Users\Paweł\repo\qslprinter\QSL Print Manager\bin\Debug\QSL Print Manager.exe.config
+C:\Users\Paweł\repo\qslprinter\QSL Print Manager\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\Paweł\repo\qslprinter\QSL Print Manager\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Paweł\repo\qslprinter\QSL Print Manager\obj\Debug\QSL Print Manager.csproj.ResolveComReference.cache

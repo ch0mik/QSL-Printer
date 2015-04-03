@@ -161,6 +161,10 @@ namespace SQ7MRU.Utils.ADIF
         public string tx_pwr { get; set; }
         public string qso_date { get; set; }
 
+        public ADIFRow()
+        {
+            qsl_sent = "N";
+        }
     }
 
 

@@ -50,7 +50,7 @@ namespace QSL_Print_Manager
                    
                     using (PDF pdf = new PDF())
                     {
-                        QSOs = pdf.loadQSOs(ADIFfilename).Where(S => S.qsl_sent.Trim() != "Y").ToList<ADIFRowExtended>(); ;
+                        QSOs = pdf.loadQSOs(ADIFfilename).Where(S => S.qsl_sent.Trim() != "Y").ToList<ADIFRowExtended>(); 
 
                         if (QSOs.Count > 0)
                         {
