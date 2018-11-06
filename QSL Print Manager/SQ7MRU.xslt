@@ -3,7 +3,7 @@
     <xsl:template match="/ADIF">
         <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns="http://www.w3.org/1999/xhtml">
             <fo:layout-master-set>
-                <fo:simple-page-master margin-top="0mm" margin-bottom="0mm" margin-left="0mm" margin-right="0mm" page-width="140mm" page-height="90mm" master-name="simplePageLayout">
+                <fo:simple-page-master margin-top="0.5mm" margin-bottom="0mm" margin-left="3.5mm" margin-right="0mm" page-width="140mm" page-height="90mm" master-name="simplePageLayout">
                     
                     <!-- Print Preview : Yes / No -->
                      <xsl:choose>
