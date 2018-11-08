@@ -74,7 +74,7 @@
             // 
             // txtVia
             // 
-            this.txtVia.Location = new System.Drawing.Point(220, -1);
+            this.txtVia.Location = new System.Drawing.Point(220, 1);
             this.txtVia.Name = "txtVia";
             this.txtVia.Size = new System.Drawing.Size(102, 20);
             this.txtVia.TabIndex = 11;
@@ -91,7 +91,7 @@
             // 
             // txtToRadio
             // 
-            this.txtToRadio.Location = new System.Drawing.Point(58, -1);
+            this.txtToRadio.Location = new System.Drawing.Point(58, 1);
             this.txtToRadio.Name = "txtToRadio";
             this.txtToRadio.ReadOnly = true;
             this.txtToRadio.Size = new System.Drawing.Size(123, 20);
@@ -100,7 +100,7 @@
             // lblToRadio
             // 
             this.lblToRadio.AutoSize = true;
-            this.lblToRadio.Location = new System.Drawing.Point(-3, 0);
+            this.lblToRadio.Location = new System.Drawing.Point(-2, 0);
             this.lblToRadio.Name = "lblToRadio";
             this.lblToRadio.Size = new System.Drawing.Size(63, 13);
             this.lblToRadio.TabIndex = 8;
@@ -125,7 +125,7 @@
             // 
             // txtFreq
             // 
-            this.txtFreq.Location = new System.Drawing.Point(482, 0);
+            this.txtFreq.Location = new System.Drawing.Point(482, 1);
             this.txtFreq.Name = "txtFreq";
             this.txtFreq.Size = new System.Drawing.Size(52, 20);
             this.txtFreq.TabIndex = 16;
@@ -143,7 +143,7 @@
             // lblComment
             // 
             this.lblComment.AutoSize = true;
-            this.lblComment.Location = new System.Drawing.Point(-3, 52);
+            this.lblComment.Location = new System.Drawing.Point(-2, 52);
             this.lblComment.Name = "lblComment";
             this.lblComment.Size = new System.Drawing.Size(63, 13);
             this.lblComment.TabIndex = 17;
@@ -169,7 +169,7 @@
             // 
             // txtRemarks
             // 
-            this.txtRemarks.Location = new System.Drawing.Point(373, 52);
+            this.txtRemarks.Location = new System.Drawing.Point(370, 52);
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.Size = new System.Drawing.Size(286, 20);
             this.txtRemarks.TabIndex = 20;
@@ -177,7 +177,7 @@
             // 
             // txtTrx
             // 
-            this.txtTrx.Location = new System.Drawing.Point(29, 26);
+            this.txtTrx.Location = new System.Drawing.Point(30, 26);
             this.txtTrx.Name = "txtTrx";
             this.txtTrx.Size = new System.Drawing.Size(108, 20);
             this.txtTrx.TabIndex = 22;
@@ -186,7 +186,7 @@
             // lblTrx
             // 
             this.lblTrx.AutoSize = true;
-            this.lblTrx.Location = new System.Drawing.Point(-3, 29);
+            this.lblTrx.Location = new System.Drawing.Point(-2, 29);
             this.lblTrx.Name = "lblTrx";
             this.lblTrx.Size = new System.Drawing.Size(38, 13);
             this.lblTrx.TabIndex = 21;
@@ -296,7 +296,7 @@
             // 
             // txtSufix
             // 
-            this.txtSufix.Location = new System.Drawing.Point(595, 74);
+            this.txtSufix.Location = new System.Drawing.Point(593, 74);
             this.txtSufix.Name = "txtSufix";
             this.txtSufix.Size = new System.Drawing.Size(64, 20);
             this.txtSufix.TabIndex = 36;
@@ -313,7 +313,7 @@
             // 
             // txtMode
             // 
-            this.txtMode.Location = new System.Drawing.Point(584, 2);
+            this.txtMode.Location = new System.Drawing.Point(581, 1);
             this.txtMode.Name = "txtMode";
             this.txtMode.Size = new System.Drawing.Size(75, 20);
             this.txtMode.TabIndex = 38;

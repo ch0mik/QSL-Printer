@@ -53,128 +53,6 @@ namespace SQ7MRU.Utils.PDF
         }
 
 
-        //private void GenerateXML(List<ADIFRow> QSOs, string xmlFile)
-        //{
-
-        //    using (XmlWriter writer = XmlWriter.Create(xmlFile))
-        //    {
-        //        writer.WriteStartDocument();
-        //        writer.WriteStartElement("ADIF");
-
-        //        foreach (ADIFRow qso in QSOs)
-        //        {
-
-        //            writer.WriteStartElement("QSO");
-
-        //            writer.WriteElementString("CALL", qso.call.ToUpper().Trim());
-        //            if (!String.IsNullOrEmpty(qso.qsl_via))
-        //            {
-        //                writer.WriteElementString("QSL_VIA", qso.qsl_via.ToUpper().Trim());
-        //            }
-
-        //            DateTime qsoTime;
-
-        //            if ((!String.IsNullOrEmpty(qso.time_off)) && (!String.IsNullOrEmpty(qso.time_on)))
-        //            {
-        //                DateTime time_off = DateTime.Parse(Extensions.ConvertStringToFormattedDateTime(qso.qso_date.Trim() + qso.time_off.Trim(), "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss"));
-        //                DateTime time_on = DateTime.Parse(Extensions.ConvertStringToFormattedDateTime(qso.qso_date.Trim() + qso.time_on.Trim(), "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss"));
-        //                qsoTime = new DateTime(time_on.Ticks + (time_off.Ticks - time_on.Ticks) / 2);
-        //            }
-        //            else if (!String.IsNullOrEmpty(qso.time_on))
-        //            {
-        //                qsoTime = DateTime.Parse(Extensions.ConvertStringToFormattedDateTime(qso.qso_date.Trim() + qso.time_on.Trim(), "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss"));
-        //            }
-        //            else
-        //            {
-        //                qsoTime = DateTime.Parse(Extensions.ConvertStringToFormattedDateTime(qso.qso_date.Trim() + qso.time_off.Trim(), "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss"));
-        //            }
-
-        //            writer.WriteElementString("DATE_DD", qsoTime.ToString("dd"));
-        //            writer.WriteElementString("DATE_MM", qsoTime.ToString("MM"));
-        //            writer.WriteElementString("DATE_YYYY", qsoTime.ToString("yyyy"));
-        //            writer.WriteElementString("TIME", qsoTime.ToString("HH:mm"));
-
-        //            if (!String.IsNullOrEmpty(qso.name))
-        //            {
-        //                writer.WriteElementString("REMARKS", "Tnx for nice QSO DR " + qso.name + " !");
-        //            }
-        //            else
-        //            {
-        //                writer.WriteElementString("REMARKS", "Tnx for nice QSO !");
-        //            }
-        //            writer.WriteElementString("BAND", qso.band);
-
-        //            if (!String.IsNullOrEmpty(qso.freq))
-        //            {
-        //                decimal freq;
-        //                if (Decimal.TryParse(qso.freq.Replace(".", ","), out freq))
-        //                {
-        //                    writer.WriteElementString("FREQ", Math.Round(freq, 2).ToString());
-        //                }
-        //            }
-
-        //            if (!String.IsNullOrEmpty(qso.comment))
-        //            {
-        //                writer.WriteElementString("COMMENT", qso.comment);
-
-        //                if (qso.comment.ToUpper().Contains("QRP"))
-        //                {
-        //                    writer.WriteElementString("SUFIX", "QRP");
-        //                }
-        //                else
-        //                {
-        //                    writer.WriteElementString("SUFIX", "");
-        //                }
-        //            }
-
-        //            if (!String.IsNullOrEmpty(qso.qsl_rcvd))
-        //            {
-        //                writer.WriteElementString("QSL_RCVD", qso.qsl_rcvd.Trim());
-        //            }
-
-        //            if (!String.IsNullOrEmpty(qso.tx_pwr))
-        //            {
-        //                writer.WriteElementString("TX_PWR", qso.tx_pwr);
-        //            }
-
-        //            if (!String.IsNullOrEmpty(qso.rst_sent))
-        //            {
-        //                writer.WriteElementString("RST_SENT", qso.rst_sent.Trim());
-        //            }
-
-        //            if (!String.IsNullOrEmpty(qso.mode))
-        //            {
-        //                writer.WriteElementString("MODE", qso.mode.Trim());
-        //            }
-
-        //            writer.WriteElementString("PREFIX", "");
-
-        //            if (!String.IsNullOrEmpty(qso.swl))
-        //            {
-        //                writer.WriteElementString("SWL", qso.swl.Trim());
-        //            }
-
-
-        //            if (!String.IsNullOrEmpty(qso.qsl_via))
-        //            {
-        //                writer.WriteElementString("QSL_VIA", qso.qsl_via.Trim());
-        //            }
-
-
-
-
-        //            writer.WriteEndElement();
-
-
-
-        //        }
-
-        //        writer.WriteEndElement();
-
-        //    }
-        //}
-
-
         public List<ADIFRowExtended> loadQSOs(string ADIFFile)
         {
             List<ADIFRowExtended> QSOsExt = new List<ADIFRowExtended>();
@@ -332,7 +210,7 @@ namespace SQ7MRU.Utils.PDF
             }
         }
 
-        public void GeneratePDF(string xmlFile, string xsltFile, string xslfoFile, string pdfFile)
+        public byte[] GeneratePDF(string xmlFile, string xsltFile, string xslfoFile)
         {
             //Generate (Transform) XSL-FO File from XSLT + XML
             XslCompiledTransform xslt = new XslCompiledTransform();
@@ -340,29 +218,19 @@ namespace SQ7MRU.Utils.PDF
             xslt.Transform(xmlFile,xslfoFile);
 
             //Generate PDF from XSL-FO File
-            FopFactory fopFactory = FopFactory.newInstance();
-            OutputStream o = new DotNetOutputMemoryStream();
-
-            try
+            using (OutputStream o = new DotNetOutputMemoryStream())
             {
-                Fop fop = fopFactory.newFop("application/pdf", o);
+                    FopFactory fopFactory = FopFactory.newInstance(new java.io.File(".").toURI());
+                    Fop fop = fopFactory.newFop("application/pdf", o);
 
-                TransformerFactory factory = TransformerFactory.newInstance();
-                Transformer transformer = factory.newTransformer();
+                    TransformerFactory factory = TransformerFactory.newInstance();
+                    Transformer transformer = factory.newTransformer();
 
-                Result res = new SAXResult(fop.getDefaultHandler());
-                transformer.transform(new StreamSource(new java.io.File(xslfoFile)), res);
-            }
+                    Result res = new SAXResult(fop.getDefaultHandler());
+                    transformer.transform(new StreamSource(new java.io.File(xslfoFile)), res);
 
-            finally
-            {
-                o.close();
-            }
-
-            using (System.IO.FileStream fs = System.IO.File.Create(pdfFile))
-            {
-                var data = ((DotNetOutputMemoryStream)o).Stream.GetBuffer();
-                fs.Write(data, 0, data.Length);
+                return ((DotNetOutputMemoryStream)o).Stream.GetBuffer().ToArray();
+                
             }
         }
     }

@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using SQ7MRU.Utils.ADIF;
+﻿using PdfiumViewer;
 using SQ7MRU.Utils.PDF;
-using System.Text.RegularExpressions;
-using System.Net;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace QSL_Print_Manager
 {
     public partial class QSLPrint : Form
     {
         public List<ADIFRowExtended> QSOs;
-        private static int currentQSO = 0;
-        private string xsd, xslt, background, tempXML, tempXSLFO,tempPDF;
+        private int currentQSO = 0;
+        private string xsd, xslt, background, tempXML, tempXSLFO, tempPDF;
+        private PdfDocument pdfDocument;
 
         public QSLPrint()
         {
@@ -34,10 +32,6 @@ namespace QSL_Print_Manager
             tempPDF = ConfigurationManager.AppSettings["TempPDF"] ?? "temp.pdf";
         }
 
-      
-
-       
-
         private void loadADIFFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -47,10 +41,9 @@ namespace QSL_Print_Manager
                 string ADIFfilename = ofd.FileName;
                 if (!string.IsNullOrEmpty(ADIFfilename))
                 {
-                   
                     using (PDF pdf = new PDF())
                     {
-                        QSOs = pdf.loadQSOs(ADIFfilename).Where(S => S.qsl_sent.Trim() != "Y").ToList<ADIFRowExtended>(); 
+                        QSOs = pdf.loadQSOs(ADIFfilename).Where(S => S.qsl_sent.Trim() != "Y").ToList<ADIFRowExtended>();
 
                         if (QSOs.Count > 0)
                         {
@@ -62,26 +55,33 @@ namespace QSL_Print_Manager
                             btnPrint.Enabled = false;
                             btnPreview.Enabled = false;
                         }
-
                     }
                 }
             }
-           
         }
 
         private void LoadDetails(int qsoIndex)
         {
-            DetailsQSO.qso = QSOs[qsoIndex];
+            qsoDetail1.qso = QSOs[qsoIndex];
             currentQSO = qsoIndex;
             lblCounter.Text = qsoIndex + 1 + "/" + QSOs.Count;
-            DetailsQSO.Refresh();
+            qsoDetail1.Refresh();
             btnPrint.Enabled = true;
             btnPreview.Enabled = true;
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             navigateQSOs(+1);
+        }
+
+        private void buttonPrint_Click(object sender, EventArgs e)
+        {
+            if(pdfDocument!=null)
+            {
+                pdfDocument.Save(tempPDF);
+                Process.Start(tempPDF);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -115,27 +115,21 @@ namespace QSL_Print_Manager
                 {
                     btnPrevious.Enabled = true;
                 }
-
             }
         }
 
         private void PreviewPrint(ADIFRowExtended qso, bool preview = true)
         {
-
             using (PDF pdf = new PDF())
             {
                 try
-                {
+                {                    
                     btnPrint.Enabled = false;
                     btnPreview.Enabled = false;
                     pdf.GenerateXML(qso, tempXML, preview);
 
-                    pdf.GeneratePDF(tempXML, xslt, tempXSLFO, tempPDF);
-
-                    AcrobatViewer.LoadFile(tempPDF);
-                    AcrobatViewer.setShowToolbar(false);
-                    AcrobatViewer.Update();
-                    AcrobatViewer.Show();
+                    pdfDocument = PdfDocument.Load(new MemoryStream(pdf.GeneratePDF(tempXML, xslt, tempXSLFO)));
+                    PdfViewer.Document = pdfDocument;
                 }
                 catch (Exception exc)
                 {
@@ -146,7 +140,6 @@ namespace QSL_Print_Manager
                     btnPreview.Enabled = true;
                     btnPrint.Enabled = true;
                 }
-
             }
         }
 
@@ -159,13 +152,5 @@ namespace QSL_Print_Manager
         {
             PreviewPrint(QSOs[currentQSO], false);
         }
-
-        private void btnToPrinter_Click(object sender, EventArgs e)
-        {
-                 AcrobatViewer.Print();
-        }
-
-        
-  
     }
 }
